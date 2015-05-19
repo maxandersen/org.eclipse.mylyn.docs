@@ -18,7 +18,7 @@ public class InlineCommentReplacementToken extends PatternBasedElement {
 
 	@Override
 	protected String getPattern(int groupOffset) {
-		return "^(//.*)"; //$NON-NLS-1$
+		return "^(//[^/]*)"; //$NON-NLS-1$
 	}
 
 	@Override

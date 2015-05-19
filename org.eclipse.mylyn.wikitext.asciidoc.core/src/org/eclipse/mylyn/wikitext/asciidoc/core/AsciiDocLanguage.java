@@ -14,7 +14,10 @@ package org.eclipse.mylyn.wikitext.asciidoc.core;
 import java.util.List;
 
 import org.eclipse.mylyn.internal.wikitext.asciidoc.core.AsciiDocPreProcessor;
+import org.eclipse.mylyn.internal.wikitext.asciidoc.core.block.CodeBlock;
+import org.eclipse.mylyn.internal.wikitext.asciidoc.core.block.CommentBlock;
 import org.eclipse.mylyn.internal.wikitext.asciidoc.core.block.HeadingBlock;
+import org.eclipse.mylyn.internal.wikitext.asciidoc.core.block.ListBlock;
 import org.eclipse.mylyn.internal.wikitext.asciidoc.core.block.ParagraphBlock;
 import org.eclipse.mylyn.internal.wikitext.asciidoc.core.block.PreformattedBlock;
 import org.eclipse.mylyn.internal.wikitext.asciidoc.core.block.UnderlinedHeadingBlock;
@@ -98,8 +101,20 @@ public class AsciiDocLanguage extends AbstractMarkupLanguage {
 
 	@Override
 	protected void addStandardBlocks(List<Block> blocks, List<Block> paragraphBreakingBlocks) {
-		blocks.add(new PreformattedBlock());
-		blocks.add(new HeadingBlock());
+		PreformattedBlock preformattedBlock = new PreformattedBlock();
+		CommentBlock commentBlock = new CommentBlock();
+		HeadingBlock headingBlock = new HeadingBlock();
+		CodeBlock codeBlock = new CodeBlock();
+		ListBlock listBlock = new ListBlock();
+
+		blocks.add(preformattedBlock);
+		blocks.add(headingBlock);
+		blocks.add(codeBlock);
+		blocks.add(listBlock);
+		blocks.add(commentBlock);
+
+		paragraphBreakingBlocks.addAll(blocks);
+
 	}
 
 	@Override

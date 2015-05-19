@@ -18,7 +18,7 @@ import org.eclipse.mylyn.wikitext.core.parser.markup.Block;
 
 /**
  * AsciiDoc default paragraph.
- * 
+ *
  * @author Stefan Seelmann
  * @author Max Rydahl Andersen - based/copied from markdown to adopt for asciidoc
  */
@@ -43,6 +43,13 @@ public class ParagraphBlock extends Block {
 		if (markupLanguage.isEmptyLine(line)) {
 			setClosed(true);
 			return 0;
+		}
+
+		for (Block block : markupLanguage.getParagraphBreakingBlocks()) {
+			if (block.canStart(line, offset)) {
+				setClosed(true);
+				return offset;
+			}
 		}
 
 		// next line, does not convert to line break
